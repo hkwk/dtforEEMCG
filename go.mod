@@ -1,4 +1,4 @@
-module vocs
+module dtforEEMCG
 
 go 1.23.3
 
