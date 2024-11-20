@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"regexp"
 
 	"github.com/xuri/excelize/v2"
@@ -73,11 +71,8 @@ func processExcel(filePath string) error {
 		}
 	}
 
-	// 获取文件的基本名称并生成输出路径
-	baseName := filepath.Base(filePath)
-	outputPath := "processed_" + baseName
-
 	// 保存修改后的工作簿
+	outputPath := "processed_" + filePath
 	if err := f.SaveAs(outputPath); err != nil {
 		return fmt.Errorf("无法保存文件: %v", err)
 	}
@@ -87,12 +82,7 @@ func processExcel(filePath string) error {
 }
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("请提供文件名作为参数，例如：./program 45vocs2.xlsx")
-		return
-	}
-	filePath := os.Args[1]
-	if err := processExcel(filePath); err != nil {
+	if err := processExcel("45vocs2.xlsx"); err != nil {
 		fmt.Println("处理Excel文件时出错:", err)
 	}
 }
