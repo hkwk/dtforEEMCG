@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 
 	"github.com/xuri/excelize/v2"
@@ -82,7 +83,12 @@ func processExcel(filePath string) error {
 }
 
 func main() {
-	if err := processExcel("45vocs2.xlsx"); err != nil {
+	if len(os.Args) < 2 {
+		fmt.Println("请提供文件名作为参数，例如：./program 45vocs2.xlsx")
+		return
+	}
+	filePath := os.Args[1]
+	if err := processExcel(filePath); err != nil {
 		fmt.Println("处理Excel文件时出错:", err)
 	}
 }
