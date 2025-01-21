@@ -85,9 +85,14 @@ func processExcel(filePath string) error {
 				value = strings.ReplaceAll(value, "总烃(ppbv)", "总烃(ppbC)")
 			}
 
-			// 替换“间、对-二甲苯”为“间/对二甲苯”，并设置红色背景
+			// 替换“间、对-二甲苯”为“间/对二甲苯”
 			if strings.Contains(value, "间、对-二甲苯") {
-				value = strings.ReplaceAll(value, "间、对-二甲苯", "间/对二甲苯")
+				value = strings.ReplaceAll(value, "间、对-二甲苯", "间/对-二甲苯")
+			}
+
+			// 替换“邻二甲苯”为“邻-二甲苯”
+			if strings.Contains(value, "邻二甲苯") {
+				value = strings.ReplaceAll(value, "邻二甲苯", "邻-二甲苯")
 			}
 
 			// 如果是第3行及之后，删除括号及其中的内容，并设置红色背景
