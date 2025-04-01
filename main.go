@@ -23,11 +23,19 @@ func processExcel(filePath string) error {
 	for _, sheetName := range sheetNames {
 		// 替换工作表名称
 		if sheetName == "甲烷非甲烷分析仪" {
-			err := f.SetSheetName(sheetName, "在线NMHC监测仪")
+			err := f.SetSheetName(sheetName, "NMHC监测仪")
 			if err != nil {
 				return fmt.Errorf("无法重命名工作表: %v", err)
 			}
-			fmt.Printf("工作表名称已从 '%s' 替换为 '在线NMHC监测仪'\n", sheetName)
+			fmt.Printf("工作表名称已从 '%s' 替换为 'NMHC监测仪'\n", sheetName)
+		}
+
+		if sheetName == "VOCs在线监测仪" {
+			err := f.SetSheetName(sheetName, "VOCs监测仪")
+			if err != nil {
+				return fmt.Errorf("无法重命名工作表: %v", err)
+			}
+			fmt.Printf("工作表名称已从 '%s' 替换为 'VOCs监测仪'\n", sheetName)
 		}
 	}
 
@@ -79,8 +87,13 @@ func processExcel(filePath string) error {
 
 			// 替换指定字符串，不设置红色背景
 			if strings.Contains(value, "甲烷非甲烷分析仪") {
-				value = strings.ReplaceAll(value, "甲烷非甲烷分析仪", "在线NMHC监测仪")
+				value = strings.ReplaceAll(value, "甲烷非甲烷分析仪", "NMHC监测仪")
 			}
+
+			if strings.Contains(value, "VOCs在线监测仪") {
+				value = strings.ReplaceAll(value, "VOCs在线监测仪", "VOCs监测仪")
+			}
+
 			if strings.Contains(value, "总烃(ppbv)") {
 				value = strings.ReplaceAll(value, "总烃(ppbv)", "总烃(ppbC)")
 			}
