@@ -70,6 +70,24 @@ func processExcel(filePath string) error {
 	// 正则表达式，用于删除括号及其中的内容
 	re := regexp.MustCompile(`\([^)]*\)`)
 
+	// 获取第3行特定单元格的值
+	i3Value, err := f.GetCellValue(activeSheetName, "I3")
+	if err != nil {
+		return fmt.Errorf("无法获取I3单元格值: %v", err)
+	}
+	k3Value, err := f.GetCellValue(activeSheetName, "K3")
+	if err != nil {
+		return fmt.Errorf("无法获取K3单元格值: %v", err)
+	}
+	q3Value, err := f.GetCellValue(activeSheetName, "Q3")
+	if err != nil {
+		return fmt.Errorf("无法获取Q3单元格值: %v", err)
+	}
+	ay3Value, err := f.GetCellValue(activeSheetName, "AY3")
+	if err != nil {
+		return fmt.Errorf("无法获取AY3单元格值: %v", err)
+	}
+
 	// 遍历整个表格处理替换
 	for row := 1; row <= maxRow; row++ {
 		for col := 1; col <= maxColumn; col++ {
@@ -106,6 +124,22 @@ func processExcel(filePath string) error {
 			// 替换“邻二甲苯”为“邻-二甲苯”
 			if strings.Contains(value, "邻二甲苯") {
 				value = strings.ReplaceAll(value, "邻二甲苯", "邻-二甲苯")
+			}
+
+			// 新增需求：处理特定列的 -999 替换
+			if row >= 4 { // 从第4行开始
+				if col == 9 && i3Value == "a24514" && value == "-999" { // I列 (col 9)
+					value = "-999#a24041"
+				}
+				if col == 11 && k3Value == "a24011" && value == "-999" { // K列 (col 11)
+					value = "-999#a24537"
+				}
+				if col == 17 && q3Value == "a24510" && value == "-999" { // Q列 (col 17)
+					value = "-999#a24504"
+				}
+				if col == 51 && ay3Value == "a25014" && value == "-999" { // AY列 (col 51)
+					value = "-999#a25501"
+				}
 			}
 
 			// 如果是第3行及之后，删除括号及其中的内容，并设置红色背景
