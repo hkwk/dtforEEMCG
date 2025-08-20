@@ -11,3 +11,4 @@ Air data transit for EEMCG(Ecological and Environmental Monitoring Centre of Gua
 2. 每次在平台下载的模板，除了时间以外，其他内容是不变的，时间格式为yyyy/MM/dd HH:mm:ss
 3. 若经审核认为数据异常剔除，单元格填充色为标准色红色
 4. 若数据缺失，单元格填-999表示。
+5. 处理共峰因子规则
