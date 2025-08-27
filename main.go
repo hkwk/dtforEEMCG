@@ -128,16 +128,16 @@ func processExcel(filePath string) error {
 
 			// 新增需求：处理特定列的 -999 替换
 			if row >= 4 { // 从第4行开始
-				if col == 9 && i3Value == "a24514" && value == "-999" { // I列 (col 9)
+				if col == 9 && i3Value == "a24514" && strings.Contains(value, "-999") { // I列 (col 9)
 					value = "-999#a24041"
 				}
-				if col == 11 && k3Value == "a24011" && value == "-999" { // K列 (col 11)
+				if col == 11 && k3Value == "a24011" && strings.Contains(value, "-999") { // K列 (col 11)
 					value = "-999#a24537"
 				}
-				if col == 17 && q3Value == "a24510" && value == "-999" { // Q列 (col 17)
+				if col == 17 && q3Value == "a24510" && strings.Contains(value, "-999") { // Q列 (col 17)
 					value = "-999#a24504"
 				}
-				if col == 51 && ay3Value == "a25014" && value == "-999" { // AY列 (col 51)
+				if col == 51 && ay3Value == "a25014" && strings.Contains(value, "-999") { // AY列 (col 51)
 					value = "-999#a25501"
 				}
 			}
